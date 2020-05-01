@@ -1,0 +1,10 @@
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\bin\x86\Debug\RGB565CONVERTOR.exe.config
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\bin\x86\Debug\RGB565CONVERTOR.exe
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\bin\x86\Debug\RGB565CONVERTOR.pdb
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x86\Debug\RGB565CONVERTOR.csprojAssemblyReference.cache
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x86\Debug\RGB565CONVERTOR.form1.resources
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x86\Debug\RGB565CONVERTOR.Properties.Resources.resources
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x86\Debug\RGB565CONVERTOR.csproj.GenerateResource.cache
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x86\Debug\RGB565CONVERTOR.csproj.CoreCompileInputs.cache
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x86\Debug\RGB565CONVERTOR.exe
+E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x86\Debug\RGB565CONVERTOR.pdb
