@@ -38,6 +38,7 @@ namespace RGB565CONVERTOR
             //8位色码
 
             //6位色码
+            COLORCODEBOX.Text = ColorTranslator.ToHtml(aimcolor);
         }
 
         //从拖动条更新目标颜色
@@ -97,7 +98,7 @@ namespace RGB565CONVERTOR
         {
             Updateall();
         }
-
+        //拖动事件
         private void REDBAR_Scroll(object sender, EventArgs e)
         {
             //设定目标颜色红色分值
@@ -115,7 +116,7 @@ namespace RGB565CONVERTOR
             //设定目标颜色绿色分值
             UpdateColorFromBar();
         }
-
+        //获得焦点
         private void REDVALUE_GotFocus(object sender, EventArgs e)
         {
             //手动设定目标颜色，取消刷新
@@ -134,6 +135,24 @@ namespace RGB565CONVERTOR
             timer1.Enabled = false;
         }
 
+        private void RGB565BOX_GotFocus(object sender, EventArgs e)
+        {
+            //手动设定目标颜色，取消刷新
+            timer1.Enabled = false;
+        }
+
+        private void RGB888BOX_GotFocus(object sender, EventArgs e)
+        {
+            //手动设定目标颜色，取消刷新
+            timer1.Enabled = false;
+        }
+
+        private void COLORCODEBOX_GotFocus(object sender, EventArgs e)
+        {
+            //手动设定目标颜色，取消刷新
+            timer1.Enabled = false;
+        }
+        //失去焦点
         private void REDVALUE_LostFocus(object sender, EventArgs e)
         {
             //焦点变化，启动刷新
@@ -152,6 +171,24 @@ namespace RGB565CONVERTOR
             timer1.Enabled = true;
         }
 
+        private void RGB565BOX_LostFocus(object sender, EventArgs e)
+        {
+            //焦点变化，启动刷新
+            timer1.Enabled = true;
+        }
+
+        private void RGB888BOX_LostFocus(object sender, EventArgs e)
+        {
+            //焦点变化，启动刷新
+            timer1.Enabled = true;
+        }
+
+        private void COLORCODEBOX_LostFocus(object sender, EventArgs e)
+        {
+            //焦点变化，启动刷新
+            timer1.Enabled = true;
+        }
+        //底色点击事件
         private void Form1_Click(object sender, EventArgs e)
         {
             
@@ -163,7 +200,7 @@ namespace RGB565CONVERTOR
                 aimcolor = ColorForm.Color;
             }
         }
-
+        //按键按下
         private void REDVALUE_KeyPress(object sender, KeyPressEventArgs e)
         {
             //限制输入仅为数字和.
@@ -223,7 +260,7 @@ namespace RGB565CONVERTOR
                 e.Handled = true;
             }
         }
-
+        //文本变化
         private void REDVALUE_TextChanged(object sender, EventArgs e)
         {
             //转换输入内容，在窗口初始化的时候可以为空（null）需处理异常
