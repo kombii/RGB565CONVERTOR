@@ -16,3 +16,13 @@ E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x64\Debug
 E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.csproj.CoreCompileInputs.cache
 E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.exe
 E:\system_desktop\rgb565converter\WindowsFormsApp1\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.pdb
+E:\project\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.csprojAssemblyReference.cache
+E:\project\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.form1.resources
+E:\project\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.Properties.Resources.resources
+E:\project\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.csproj.GenerateResource.cache
+E:\project\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.csproj.CoreCompileInputs.cache
+E:\project\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.exe
+E:\project\RGB565CONVERTOR\obj\x64\Debug\RGB565CONVERTOR.pdb
+E:\project\RGB565CONVERTOR\bin\x64\Debug\RGB565CONVERTOR.exe.config
+E:\project\RGB565CONVERTOR\bin\x64\Debug\RGB565CONVERTOR.exe
+E:\project\RGB565CONVERTOR\bin\x64\Debug\RGB565CONVERTOR.pdb

@@ -36,9 +36,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.REDVALUE = new System.Windows.Forms.Label();
-            this.GREENVLAUE = new System.Windows.Forms.Label();
-            this.BLUEVALUE = new System.Windows.Forms.Label();
+            this.REDVALUE = new System.Windows.Forms.TextBox();
+            this.GREENVALUE = new System.Windows.Forms.TextBox();
+            this.BLUEVALUE = new System.Windows.Forms.TextBox();
+            this.NoUseLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.REDBAR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BLUEBAR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GREENBAR)).BeginInit();
@@ -121,41 +122,60 @@
             // 
             // REDVALUE
             // 
-            this.REDVALUE.AutoSize = true;
-            this.REDVALUE.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.REDVALUE.Location = new System.Drawing.Point(521, 238);
+            this.REDVALUE.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.REDVALUE.Location = new System.Drawing.Point(521, 244);
+            this.REDVALUE.MaxLength = 3;
             this.REDVALUE.Name = "REDVALUE";
-            this.REDVALUE.Size = new System.Drawing.Size(106, 39);
-            this.REDVALUE.TabIndex = 9;
-            this.REDVALUE.Text = "label5";
+            this.REDVALUE.Size = new System.Drawing.Size(100, 34);
+            this.REDVALUE.TabIndex = 12;
+            this.REDVALUE.TextChanged += new System.EventHandler(this.REDVALUE_TextChanged);
+            this.REDVALUE.GotFocus += new System.EventHandler(this.REDVALUE_GotFocus);
+            this.REDVALUE.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.REDVALUE_KeyPress);
+            this.REDVALUE.LostFocus += new System.EventHandler(this.REDVALUE_LostFocus);
             // 
-            // GREENVLAUE
+            // GREENVALUE
             // 
-            this.GREENVLAUE.AutoSize = true;
-            this.GREENVLAUE.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.GREENVLAUE.Location = new System.Drawing.Point(521, 283);
-            this.GREENVLAUE.Name = "GREENVLAUE";
-            this.GREENVLAUE.Size = new System.Drawing.Size(106, 39);
-            this.GREENVLAUE.TabIndex = 10;
-            this.GREENVLAUE.Text = "label6";
+            this.GREENVALUE.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.GREENVALUE.Location = new System.Drawing.Point(521, 289);
+            this.GREENVALUE.MaxLength = 3;
+            this.GREENVALUE.Name = "GREENVALUE";
+            this.GREENVALUE.Size = new System.Drawing.Size(100, 34);
+            this.GREENVALUE.TabIndex = 13;
+            this.GREENVALUE.TextChanged += new System.EventHandler(this.GREENVALUE_TextChanged);
+            this.GREENVALUE.GotFocus += new System.EventHandler(this.GREENVALUE_GotFocus);
+            this.GREENVALUE.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GREENVALUE_KeyPress);
+            this.GREENVALUE.LostFocus += new System.EventHandler(this.GREENVALUE_LostFocus);
             // 
             // BLUEVALUE
             // 
-            this.BLUEVALUE.AutoSize = true;
-            this.BLUEVALUE.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BLUEVALUE.Location = new System.Drawing.Point(521, 328);
+            this.BLUEVALUE.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BLUEVALUE.Location = new System.Drawing.Point(521, 334);
+            this.BLUEVALUE.MaxLength = 3;
             this.BLUEVALUE.Name = "BLUEVALUE";
-            this.BLUEVALUE.Size = new System.Drawing.Size(106, 39);
-            this.BLUEVALUE.TabIndex = 11;
-            this.BLUEVALUE.Text = "label7";
+            this.BLUEVALUE.Size = new System.Drawing.Size(100, 34);
+            this.BLUEVALUE.TabIndex = 14;
+            this.BLUEVALUE.TextChanged += new System.EventHandler(this.BLUEVALUE_TextChanged);
+            this.BLUEVALUE.GotFocus += new System.EventHandler(this.BLUEVALUE_GotFocus);
+            this.BLUEVALUE.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BLUEVALUE_KeyPress);
+            this.BLUEVALUE.LostFocus += new System.EventHandler(this.BLUEVALUE_LostFocus);
+            // 
+            // NoUseLabel
+            // 
+            this.NoUseLabel.AutoSize = true;
+            this.NoUseLabel.BackColor = System.Drawing.Color.Transparent;
+            this.NoUseLabel.Location = new System.Drawing.Point(281, 32);
+            this.NoUseLabel.Name = "NoUseLabel";
+            this.NoUseLabel.Size = new System.Drawing.Size(0, 12);
+            this.NoUseLabel.TabIndex = 15;
             // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 380);
+            this.Controls.Add(this.NoUseLabel);
             this.Controls.Add(this.BLUEVALUE);
-            this.Controls.Add(this.GREENVLAUE);
+            this.Controls.Add(this.GREENVALUE);
             this.Controls.Add(this.REDVALUE);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -182,10 +202,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label REDVALUE;
-        private System.Windows.Forms.Label GREENVLAUE;
-        private System.Windows.Forms.Label BLUEVALUE;
         internal System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox REDVALUE;
+        private System.Windows.Forms.TextBox GREENVALUE;
+        private System.Windows.Forms.TextBox BLUEVALUE;
+        private System.Windows.Forms.Label NoUseLabel;
     }
 }
 
