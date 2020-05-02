@@ -8,6 +8,7 @@ namespace RGB565CONVERTOR
     {
         private Color aimcolor = Color.FromArgb(unchecked((int)0xFFFFFFFF));
         private int Color565;
+
         public form1()
         {
             InitializeComponent();
@@ -53,7 +54,7 @@ namespace RGB565CONVERTOR
                 }
             }
             //补全4位
-            RGB565BOX.Text = "0X" + Texttemp;
+            RGB565BOX.Text = "0x" + Texttemp;
             //加上0X
         }
 
@@ -103,10 +104,26 @@ namespace RGB565CONVERTOR
             }
         }
 
-        //从6字节色码更新目标颜色
-        private void UpdateColorFrom6Word()
+        //从RGB888更新目标颜色
+        private void UpdateColorFrom888()
         {
             aimcolor = ColorTranslator.FromHtml(RGB888BOX.Text);
+        }
+
+        //从RGB565更新目标颜色
+        private void UpdateColorFrom565()
+        {
+            Int16 color565temp = System.Convert.ToInt16(RGB565BOX.Text.Substring(2, 4), 16);
+
+            aimcolor = Color.FromArgb(
+                            //               5/6位掩码
+                            //                       取偏移
+                            //                                 修正
+                            //                                      转888
+                            (color565temp & (0x1F << 11))   >> 11 <<3,  //r,
+                            (color565temp & (0x3F << 5))    >> 5  <<2,  //g
+                            (color565temp & (0x1F << 0))    >> 0  <<3   //b
+                        );
         }
 
         //使用定时器触发界面更新
@@ -272,38 +289,50 @@ namespace RGB565CONVERTOR
 
         private void RGB565BOX_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //限制输入仅为数字和A-F
-            if (e.KeyChar == 'X' && (RGB565BOX.Text.Contains("X") || RGB565BOX.Text == ""))
-            {
-                e.Handled = true;
-            }
-            else if ((e.KeyChar < '0' || e.KeyChar > 'F') && e.KeyChar != 8)
-            {
-                e.Handled = true;
-            }
-            if (RGB565BOX.Text.Length >= 6 && e.KeyChar != 8)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void RGB888BOX_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar != '#' && RGB888BOX.Text == "")
-            {
-                e.Handled = true;
-            }
-            //空时只允许输入#，
-            if (e.KeyChar == '#' && RGB888BOX.Text.Contains("#"))
-            {
-                e.Handled = true;
-            }
-            //有#时不可以再输入一个
             if (e.KeyChar >= 'a' && e.KeyChar <= 'f')
             {
                 e.KeyChar = (char)(e.KeyChar - ('a' - 'A'));
             }
             //小写转大写
+            if (e.KeyChar != '0' && RGB888BOX.Text == "")
+            {
+                e.Handled = true;
+            }
+            //空时只允许输入0
+            if (e.KeyChar != 'x' && RGB888BOX.Text == "0")
+            {
+                e.Handled = true;
+            }
+            //0时只允许输入X
+            if (e.KeyChar == 'x' && (RGB565BOX.Text.Contains("x")))
+            {
+                e.Handled = true;
+            }
+            //有X时不能再输入一个
+            if ((e.KeyChar < '0' || e.KeyChar > 'F') && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+            //限制输入仅为数字和A-F，并且允许按下删除键
+        }
+
+        private void RGB888BOX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar >= 'a' && e.KeyChar <= 'f')
+            {
+                e.KeyChar = (char)(e.KeyChar - ('a' - 'A'));
+            }
+            //小写转大写
+            if (e.KeyChar != '#' && RGB888BOX.Text == "")
+            {
+                e.Handled = true;
+            }
+            //空时只允许输入#
+            if (e.KeyChar == '#' && RGB888BOX.Text.Contains("#"))
+            {
+                e.Handled = true;
+            }
+            //有#时不可以再输入一个
             if ((e.KeyChar < '0' || e.KeyChar > 'F') && e.KeyChar != 8)
             {
                 e.Handled = true;
@@ -388,8 +417,13 @@ namespace RGB565CONVERTOR
         {
             if (RGB565BOX.Text == "" || RGB565BOX.Text == "0")
             {
-                RGB565BOX.Text = "0X";
+                RGB565BOX.Text = "0x";
                 RGB565BOX.Select(2, 0);
+            }
+            if (RGB565BOX.Text.Length == 6)
+            {
+                UpdateColorFrom565();
+                Updateall();//仅刷新一次，防止卡死
             }
         }
 
@@ -402,7 +436,7 @@ namespace RGB565CONVERTOR
             }
             if (RGB888BOX.Text.Length == 7)
             {
-                UpdateColorFrom6Word();
+                UpdateColorFrom888();
                 Updateall();//仅刷新一次，防止卡死
             }
         }
