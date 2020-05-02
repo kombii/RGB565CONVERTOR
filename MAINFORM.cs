@@ -109,12 +109,6 @@ namespace RGB565CONVERTOR
             aimcolor = ColorTranslator.FromHtml(RGB888BOX.Text);
         }
 
-        //从8字节色码（包含不生效的透明度）更新目标颜色
-        private void UpdateColorFrom8Word()
-        {
-            aimcolor = Color.FromArgb(REDBAR.Value, GREENBAR.Value, BLUEBAR.Value);
-        }
-
         //使用定时器触发界面更新
         private void timer1_Tick(object sender, EventArgs e)
         {
