@@ -8,6 +8,7 @@ namespace RGB565CONVERTOR
     {
         private Color aimcolor = Color.FromArgb(unchecked((int)0xFFFFFFFF));
         private int Color565;
+        private bool Flushflag = false;
 
         public form1()
         {
@@ -113,23 +114,25 @@ namespace RGB565CONVERTOR
         //从RGB565更新目标颜色
         private void UpdateColorFrom565()
         {
-            Int16 color565temp = System.Convert.ToInt16(RGB565BOX.Text.Substring(2, 4), 16);
+            if (Flushflag)
+            {
+                Int16 color565temp = System.Convert.ToInt16(RGB565BOX.Text.Substring(2, 4), 16);
 
-            aimcolor = Color.FromArgb(
-                            //               5/6位掩码
-                            //                       取偏移
-                            //                                 修正
-                            //                                      转888
-                            (color565temp & (0x1F << 11))   >> 11 <<3,  //r,
-                            (color565temp & (0x3F << 5))    >> 5  <<2,  //g
-                            (color565temp & (0x1F << 0))    >> 0  <<3   //b
-                        );
+                aimcolor = Color.FromArgb(
+                                //               5/6位掩码
+                                //                       取偏移
+                                //                               修正
+                                //                                     转888
+                                (color565temp & (0x1F << 11)) >> 11 << 3,  //r,
+                                (color565temp & (0x3F << 5)) >> 5 << 2,  //g
+                                (color565temp & (0x1F << 0)) >> 0 << 3   //b
+                            );
+            }
         }
 
         //使用定时器触发界面更新
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label6.Enabled = !label6.Enabled;
             Updateall();
         }
 
@@ -313,6 +316,7 @@ namespace RGB565CONVERTOR
             {
                 e.Handled = true;
             }
+            Flushflag = true;
             //限制输入仅为数字和A-F，并且允许按下删除键
         }
 
@@ -424,6 +428,7 @@ namespace RGB565CONVERTOR
             {
                 UpdateColorFrom565();
                 Updateall();//仅刷新一次，防止卡死
+                Flushflag = false;
             }
         }
 
@@ -473,14 +478,6 @@ namespace RGB565CONVERTOR
         private void form1_Deactivate(object sender, EventArgs e)
         {
             NOTIFY.Text = "切换到后台...等待操作中...";
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
         }
     }
 }

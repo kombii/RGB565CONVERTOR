@@ -47,7 +47,6 @@
             this.RGB565COPY = new System.Windows.Forms.Button();
             this.COLORCODECOPY = new System.Windows.Forms.Button();
             this.NOTIFY = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.REDBAR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BLUEBAR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GREENBAR)).BeginInit();
@@ -258,21 +257,11 @@
             this.NOTIFY.Size = new System.Drawing.Size(635, 20);
             this.NOTIFY.TabIndex = 32;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(580, 70);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "label6";
-            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 265);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.NOTIFY);
             this.Controls.Add(this.COLORCODECOPY);
             this.Controls.Add(this.RGB565COPY);
@@ -324,7 +313,6 @@
         private System.Windows.Forms.Button RGB565COPY;
         private System.Windows.Forms.Button COLORCODECOPY;
         private System.Windows.Forms.Label NOTIFY;
-        private System.Windows.Forms.Label label6;
     }
 }
 
