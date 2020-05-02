@@ -7,14 +7,14 @@ namespace RGB565CONVERTOR
     public partial class form1 : Form
     {
         private Color aimcolor = Color.FromArgb(unchecked((int)0xFFFFFFFF));
-
+        private int Color565;
         public form1()
         {
             InitializeComponent();
         }
 
         //将控件的焦点转移到label标签，保证点击控件不会出现线框
-        private void Control_Lose_Focus()    
+        private void Control_Lose_Focus()
         {
             NoUseLabel.Focus();
         }
@@ -35,10 +35,32 @@ namespace RGB565CONVERTOR
             REDVALUE.Text = Convert.ToString(aimcolor.R);
             GREENVALUE.Text = Convert.ToString(aimcolor.G);
             BLUEVALUE.Text = Convert.ToString(aimcolor.B);
-            //8位色码
+            //RGB888
+            RGB888BOX.Text = ColorTranslator.ToHtml(aimcolor);
+            //RGB565
+            Color565 = ((aimcolor.R >> 3) & 0x1F) << 11  //r
+                     | ((aimcolor.G >> 2) & 0x3F) << 5   //g
+                     | ((aimcolor.B >> 3) & 0x1F) << 0;  //b
+            //转换888到565
+            string Texttemp = Convert.ToString(Color565, 16).ToUpper();
+            //转换为16进制表示的文本，并且大写
+            if (Texttemp.Length < 4)
+            {
+                int j = 4 - Texttemp.Length;
+                for (int i = 0; i < j; i++)
+                {
+                    Texttemp = "0" + Texttemp;
+                }
+            }
+            //补全4位
+            RGB565BOX.Text = "0X" + Texttemp;
+            //加上0X
+        }
 
-            //6位色码
-            COLORCODEBOX.Text = ColorTranslator.ToHtml(aimcolor);
+        // 处理剪贴板
+        private void CPBoardProcess()
+        {
+            //TODO处理剪贴板数据，自动更新颜色
         }
 
         //从拖动条更新目标颜色
@@ -84,7 +106,7 @@ namespace RGB565CONVERTOR
         //从6字节色码更新目标颜色
         private void UpdateColorFrom6Word()
         {
-            aimcolor = Color.FromArgb(REDBAR.Value, GREENBAR.Value, BLUEBAR.Value);
+            aimcolor = ColorTranslator.FromHtml(RGB888BOX.Text);
         }
 
         //从8字节色码（包含不生效的透明度）更新目标颜色
@@ -96,8 +118,10 @@ namespace RGB565CONVERTOR
         //使用定时器触发界面更新
         private void timer1_Tick(object sender, EventArgs e)
         {
+            label6.Enabled = !label6.Enabled;
             Updateall();
         }
+
         //拖动事件
         private void REDBAR_Scroll(object sender, EventArgs e)
         {
@@ -116,6 +140,7 @@ namespace RGB565CONVERTOR
             //设定目标颜色绿色分值
             UpdateColorFromBar();
         }
+
         //获得焦点
         private void REDVALUE_GotFocus(object sender, EventArgs e)
         {
@@ -147,11 +172,6 @@ namespace RGB565CONVERTOR
             timer1.Enabled = false;
         }
 
-        private void COLORCODEBOX_GotFocus(object sender, EventArgs e)
-        {
-            //手动设定目标颜色，取消刷新
-            timer1.Enabled = false;
-        }
         //失去焦点
         private void REDVALUE_LostFocus(object sender, EventArgs e)
         {
@@ -183,15 +203,9 @@ namespace RGB565CONVERTOR
             timer1.Enabled = true;
         }
 
-        private void COLORCODEBOX_LostFocus(object sender, EventArgs e)
-        {
-            //焦点变化，启动刷新
-            timer1.Enabled = true;
-        }
         //底色点击事件
         private void Form1_Click(object sender, EventArgs e)
         {
-            
             Control_Lose_Focus();//失去焦点，防止输入完立即点击背景无法自动启动刷新
             //打开系统颜色选择器，等待用户选择需要的颜色
             ColorDialog ColorForm = new ColorDialog();
@@ -200,6 +214,7 @@ namespace RGB565CONVERTOR
                 aimcolor = ColorForm.Color;
             }
         }
+
         //按键按下
         private void REDVALUE_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -260,6 +275,48 @@ namespace RGB565CONVERTOR
                 e.Handled = true;
             }
         }
+
+        private void RGB565BOX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //限制输入仅为数字和A-F
+            if (e.KeyChar == 'X' && (RGB565BOX.Text.Contains("X") || RGB565BOX.Text == ""))
+            {
+                e.Handled = true;
+            }
+            else if ((e.KeyChar < '0' || e.KeyChar > 'F') && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+            if (RGB565BOX.Text.Length >= 6 && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void RGB888BOX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != '#' && RGB888BOX.Text == "")
+            {
+                e.Handled = true;
+            }
+            //空时只允许输入#，
+            if (e.KeyChar == '#' && RGB888BOX.Text.Contains("#"))
+            {
+                e.Handled = true;
+            }
+            //有#时不可以再输入一个
+            if (e.KeyChar >= 'a' && e.KeyChar <= 'f')
+            {
+                e.KeyChar = (char)(e.KeyChar - ('a' - 'A'));
+            }
+            //小写转大写
+            if ((e.KeyChar < '0' || e.KeyChar > 'F') && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+            //限制输入仅为数字和A-F，并且允许按下删除键
+        }
+
         //文本变化
         private void REDVALUE_TextChanged(object sender, EventArgs e)
         {
@@ -281,7 +338,7 @@ namespace RGB565CONVERTOR
             else
             {
                 UpdateColorFromNumWord(1);//仅更新自己对应的颜色
-                timer1.Enabled = true;//更新完毕启动刷新
+                Updateall();//仅刷新一次，防止卡死
             }
         }
 
@@ -305,7 +362,7 @@ namespace RGB565CONVERTOR
             else
             {
                 UpdateColorFromNumWord(2);//仅更新自己对应的颜色
-                timer1.Enabled = true;//更新完毕启动刷新
+                Updateall();//仅刷新一次，防止卡死
             }
         }
 
@@ -329,8 +386,73 @@ namespace RGB565CONVERTOR
             else
             {
                 UpdateColorFromNumWord(3);//仅更新自己对应的颜色
-                timer1.Enabled = true;//更新完毕启动刷新
+                Updateall();//仅刷新一次，防止卡死
             }
+        }
+
+        private void RGB565BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (RGB565BOX.Text == "" || RGB565BOX.Text == "0")
+            {
+                RGB565BOX.Text = "0X";
+                RGB565BOX.Select(2, 0);
+            }
+        }
+
+        private void RGB888BOX_TextChanged(object sender, EventArgs e)
+        {
+            if (RGB888BOX.Text == "" || !RGB888BOX.Text.Contains("#"))
+            {
+                RGB888BOX.Text = "#";
+                RGB888BOX.Select(1, 0);
+            }
+            if (RGB888BOX.Text.Length == 7)
+            {
+                UpdateColorFrom6Word();
+                Updateall();//仅刷新一次，防止卡死
+            }
+        }
+
+        private void RGB565COPY_Click(object sender, EventArgs e)
+        {
+            if (RGB565BOX.Text != "")
+            {
+                Clipboard.SetDataObject(RGB565BOX.Text.Trim());
+                NOTIFY.Text = "RGB565 复制成功";
+            }
+        }
+
+        private void RGB888COPY_Click(object sender, EventArgs e)
+        {
+            if (RGB888BOX.Text != "")
+            {
+                Clipboard.SetDataObject(RGB888BOX.Text.Trim());
+                NOTIFY.Text = "RGB888 复制成功";
+            }
+        }
+
+        private void form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            NOTIFY.Text = "准备就绪.....点击任何空白区域/拖动条/数据区以手动指定颜色";
+        }
+
+        private void form1_Activated(object sender, EventArgs e)
+        {
+            NOTIFY.Text = "切换到前台...准备处理剪贴板数据...";
+            CPBoardProcess();
+        }
+
+        private void form1_Deactivate(object sender, EventArgs e)
+        {
+            NOTIFY.Text = "切换到后台...等待操作中...";
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }
