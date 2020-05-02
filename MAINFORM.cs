@@ -160,18 +160,21 @@ namespace RGB565CONVERTOR
         {
             //手动设定目标颜色，取消刷新
             timer1.Enabled = false;
+            NOTIFY.Text = "警告！手动操作RGB色值转换到RGB565时会丢失分辨率，该数值可能不准确！";
         }
 
         private void GREENVALUE_GotFocus(object sender, EventArgs e)
         {
             //手动设定目标颜色，取消刷新
             timer1.Enabled = false;
+            NOTIFY.Text = "警告！手动操作RGB色值转换到RGB565时会丢失分辨率，该数值可能不准确！";
         }
 
         private void BLUEVALUE_GotFocus(object sender, EventArgs e)
         {
             //手动设定目标颜色，取消刷新
             timer1.Enabled = false;
+            NOTIFY.Text = "警告！手动操作RGB色值转换到RGB565时会丢失分辨率，该数值可能不准确！";
         }
 
         private void RGB565BOX_GotFocus(object sender, EventArgs e)
@@ -184,6 +187,7 @@ namespace RGB565CONVERTOR
         {
             //手动设定目标颜色，取消刷新
             timer1.Enabled = false;
+            NOTIFY.Text = "警告！手动操作RGB888转换到RGB565时会丢失分辨率，该数值可能不准确！";
         }
 
         //失去焦点
