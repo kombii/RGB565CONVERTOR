@@ -1,2 +1,8 @@
 # RGB565CONVERTOR
-A simple converter for bidirectional conversion of color and rgb565 format
+一个简单的RGB颜色转换器
+可以将RGB888颜色转换为LCD屏幕可用的RGB565格式；
+支持复制粘贴颜色色值；
+可通过系统调色板以及三原色拖动条手动混色；
+支持网页色值#XXXXXX输入输出；
+从后台切换到前台的时候可以从剪贴板直接获取色值并进行转换；（未完成）
+可以进行屏幕取色；（未完成）
